@@ -10,3 +10,7 @@ import 'nodes.pp'
 class{'basic':
   stage => first
 }
+
+
+-> class{"erlang":}
+-> class{"erlang::elixir":}

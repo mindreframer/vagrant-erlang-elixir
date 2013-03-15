@@ -6,11 +6,3 @@ Stage['first'] -> Stage['main'] -> Stage['last']
 
 import 'basic.pp'
 import 'nodes.pp'
-
-class{'basic':
-  stage => first
-}
-
-
--> class{"erlang":}
--> class{"erlang::elixir":}

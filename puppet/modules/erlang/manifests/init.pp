@@ -16,7 +16,7 @@ class erlang::sources{
     unless  => "apt-key list|grep erlang-solutions"
   }
   ->exec{"erlang::apt_get_update":
-    command => "sudo apt-get update && touch /var/tmp/.erlang_apt_get_update",
+    command => "apt-get update && touch /var/tmp/.erlang_apt_get_update",
     unless  => "test -e /var/tmp/.erlang_apt_get_update"
   }
 }

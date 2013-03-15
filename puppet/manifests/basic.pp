@@ -1,7 +1,7 @@
 class basic{
   # run apt-get update before anything else runs
   class {'basic::update_aptget': stage => first} ->
-  class {"basic::users":} ->
+  class {"basic::users": stage => first} ->
   class {"basic::packages": stage => first} ->
   class {"basic::helpers":}
 }
@@ -26,7 +26,7 @@ class basic::helpers{
   # script to run puppet
   file{"/usr/local/bin/runpuppet":
     content => " \
-    sudo puppet apply -vv  --modulepath=$puppet_dir/modules/ $puppet_dir/manifests/main.pp\n",
+    sudo -i puppet apply -vv  --modulepath=$puppet_dir/modules/ $puppet_dir/manifests/main.pp\n",
     mode    => 0755
   }
 

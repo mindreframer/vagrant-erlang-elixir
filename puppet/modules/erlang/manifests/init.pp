@@ -2,6 +2,7 @@ class erlang{
   include erlang::params
   class{"erlang::sources":}
   -> class{"erlang::install":}
+  -> class{"erlang::rebar":}
 }
 
 class erlang::sources{
@@ -23,4 +24,15 @@ class erlang::sources{
 
 class erlang::install{
   package{"esl-erlang": ensure => installed}
+}
+
+
+class erlang::rebar{
+  # HOME is needed for escript, from rebar!
+  exec{"erlang::rebar::download":
+    cwd         => "/usr/local/bin",
+    environment => 'HOME=/root',
+    command     => "wget https://github.com/rebar/rebar/wiki/rebar && chmod +x rebar",
+    unless      => "test -e /usr/local/bin/rebar && /usr/local/bin/rebar -V|grep '$erlang::params::rebar_version'"
+  }
 }
